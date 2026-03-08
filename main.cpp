@@ -40,3 +40,21 @@ Example output:
 20
 
 */
+
+#include <iostream>
+#include <vector>
+#include <tuple>
+
+std::vector<std::tuple<int, int, int>> getInput() {
+    std::vector<std::tuple<int, int, int>> v;
+    int n1, n2, n3;
+    while (std::cin >> n1 >> n2 >> n3) {
+        v.push_back(std::make_tuple(n1, n2, n3));
+    }
+    return v;
+}
+
+int main() {
+    std::vector<std::tuple<int, int, int>> trikits = getInput();
+    return 0;
+}
