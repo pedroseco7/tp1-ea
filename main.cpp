@@ -39,22 +39,39 @@ Example input:
 Example output:
 20
 
+Gestão do INPUT:
+1ª ideia - Foi ler os dados linha a linha e guardá-los num tuplo. Contudo, como os dados são sempre 3 números, pode ser mais fácil criar uma struct Trikit com um array de 3 inteiros para os cantos. Assim, podemos ter métodos para obter os lados do trikit e facilitar o processo de matching.
+2ª ideia - Guardar os trikits num vector de Trikit. Assim, podemos iterar sobre eles facilmente e aplicar as regras do jogo para encontrar o score máximo.
+
 */
 
 #include <iostream>
 #include <vector>
 #include <tuple>
 
-std::vector<std::tuple<int, int, int>> getInput() {
-    std::vector<std::tuple<int, int, int>> v;
-    int n1, n2, n3;
-    while (std::cin >> n1 >> n2 >> n3) {
-        v.push_back(std::make_tuple(n1, n2, n3));
+struct Trikit {
+    int corners[3];
+
+    std::pair<int, int> side(int s) const {
+        int a = corners[s];
+        int b = corners[(s+1) % 3];
+        if (a > b){
+            std::swap(a, b);
+        }
+        return {a, b};
+    }
+};
+
+std::vector<Trikit> getInput() {
+    std::vector<Trikit> v;
+    Trikit t;
+    while (std::cin >> t.corners[0] >> t.corners[1] >> t.corners[2]) {
+        v.push_back(t);
     }
     return v;
 }
 
 int main() {
-    std::vector<std::tuple<int, int, int>> trikits = getInput();
+    std::vector<Trikit> trikits = getInput();
     return 0;
 }
